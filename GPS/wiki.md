@@ -90,7 +90,7 @@ Another important consideration is that $\sin\left(\theta - \dfrac{\pi}{2}\right
 
 * $x = r\cos\phi\cos\theta$
 * $y = r\sin\phi\cos\theta$
-* $z = r\cos\theta$
+* $z = r\sin\theta$
 
 This allows us to convert the `phyphox` data to a form people more easily understand.  Of course, a quick Google search will produce the answers they desire, but the intent is for this to be readable from start to finish with introductory science knowledge.  
 
