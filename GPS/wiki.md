@@ -1,6 +1,6 @@
-### CLEVER TITLE HERE
+## WIKI
 
-## 
+***
 
 ### Motivation
 
@@ -156,11 +156,11 @@ Of course, this can be generalized to higher dimensions, but for our focus this 
 
 $\vec{s} = \begin{bmatrix} s_1 \\ s_2 \\ \dots \\ s_P \end{bmatrix}$
 
-We then have the vectorized equation $T\vec{c} = \vec{s}$.  This is a [Vandermonde Matrix](https://en.wikipedia.org/wiki/Vandermonde_matrix).  However, since this matrix cannot be square (size $N \times N$ or $P \times P$) in order to have sufficient data , then we cannot apply Gaussian elimination without producing linear dependence.  But we can take advantage of the fact that a $(n \times m) \times (m \times n)$ matrix multiplication produces a $n \times n$ size matrix, whereas a ($n \times m$) $\times$ $(n \times q)$ multiplication produces a $n \times q$ size matrix.  
+We then have the vectorized equation $T\vec{c} = \vec{s}$.  This is a [Vandermonde Matrix](https://en.wikipedia.org/wiki/Vandermonde_matrix).  However, since this matrix cannot be square (size $N \times N$ or $size(P) \times size(P)$) in order to have sufficient data , then we cannot apply Gaussian elimination without producing linear dependence.  But we can take advantage of the fact that a $(n \times m) \times (m \times n)$ matrix multiplication produces a $n \times n$ size matrix, whereas a ($n \times m$) $\times$ $(n \times q)$ multiplication produces a $n \times q$ size matrix.  
 
 We can utilize this knowledge by multiplying both sides of the equation by the transpose of $T$, $T^T$, such that $A = T^T T$ and $\vec{b} = T^T \vec{s}$.  Thus, after applying this, we have $A\vec{c} = \vec{b}$, which can be row-reduced since the matrix is now non-singular (nonzero determinant) and square.   
 
-Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t + c_2 t^2 = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^P [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{P}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  
+Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t + c_2 t^2 = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^{size(P)} [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{size(P)}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  
 
 Alternatively, we can just observe $|s(t_i) - f(t_i)|$ vs. $t_i$ to see how the error trends at each vector element.   Since this is predicting real data (not an exact function), this measure won't really tells us much if we're looking to observe some trend in error.
 
@@ -199,3 +199,9 @@ re-do data for 10 or so trials walking down jennings
 fit based on x, y, z ? :) 
 
 discussion
+
+***
+
+### Jeremy Kazimer
+
+### jdkazime@buffalo.edu

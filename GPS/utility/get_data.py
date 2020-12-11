@@ -2,7 +2,7 @@ import pandas as pds
 import numpy as np
 import os
 
-def get_data(filename):
+def get_data(filename, ignore_zeros = False):
 
     # Declare an empty position dictionary:
     position = {}
@@ -19,9 +19,10 @@ def get_data(filename):
 
         # Just because it's a csv doesn't mean that it's the data we need.
         if keys == list(table.keys()):
-
-            # Remove values where there are zero satellites (data cannot be trusted)
-            table = table[table['Satellites'] != 0.0]
+            
+            if ignore_zeros == False:
+                # Remove values where there are zero satellites (data cannot be trusted)
+                table = table[table['Satellites'] != 0.0]
 
             # Time
             time = np.array(table['Time (s)'])

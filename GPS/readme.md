@@ -20,7 +20,7 @@ Besides that, there are a few subfolders.  Namely, `data`, `figures`, and `utili
 
 * The `data` folder houses all of raw data from `phyphox`, including the `.zip` files in case data is somehow corrupted.  These are titled `sample_1.csv`, `sample_2.csv`, etc such that they can be easily iterated over, at the cost of uniqueness.  What I mean is that if a particular dataset interests you, you'll find it difficult to recover that data unless you record the exact file name.  I do not create new data as much of that can be handled by ease by the functions in `utility`.  
 * In the `figures` folder, all of the resulting graphs are saved as a `.pdf`.  Foremost, this allows for the user to look at the results without having to actually run the notebooks.  Further, the `.pdf` is vectorized such that the user can zoom in to a reasonable extent without image loss.   
-* Lastly, `utility`:  this folder holds all of the `.py` files used for background computation.  Without expanding on every single one (see `Code` in the wiki for this), most of them are named according to the `Theory` section in the wiki.  They also have mild documentation if long-form reading isn't your taste.   In this folder is another subfolder `tests`, which stores the unit testing for all of these `.py` files.  These are a good read in order to get an idea of how these functions should behave.  By putting these functions in the background, `GPS.ipynb` has less clutter and is thus more readable.  
+* Lastly, `utility`:  this folder holds all of the `.py` files used for background computation.  Without expanding on every single one (see `code` in the repository for this; code in the notebook is explained there), most of them are named according to the `Theory` section in the wiki.  They also have mild documentation if long-form reading isn't your taste.   In this folder is another subfolder `tests`, which stores the unit testing for all of these `.py` files.  These are a good read in order to get an idea of how these functions should behave.  By putting these functions in the background, `GPS.ipynb` has less clutter and is thus more readable.  
 
 However, this repository also has the wiki, in both `.md` and `.pdf` (just like this file).  Effectively, this tells you much of the same information here, but with far more elegance and deeply elaborate.  Basically, regardless of your understanding of the material, reading the wiki is important because it defines everything from essentially the ground up.  Ideally, it should answer all of your simple questions.  This `readme` is like a movie to the book that is the wiki.  
 
@@ -46,7 +46,7 @@ This is a final project for PHY 410, at SUNY Buffalo.  As such, the scope of the
 
 ***
 
-## Jeremy Kazimer
+### Jeremy Kazimer
 
 ### jdkazime@buffalo.edu
 
