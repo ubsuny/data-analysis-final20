@@ -28,9 +28,27 @@ Third, most of the background data processing is done in my own custom made `.py
 
 Fourth, all data can be found in the `data` folder and the figures in the `figures` folder.  This is an act of cleanliness.
 
+Fifth, the motion I chose to imitate is rather simple; walking in a straight line does not generalize to higher orders of motion or equations of other forces.  So, my experiment can only be replicated as it by walking in a straight line.
 
 
-#### Data
+
+### Experiment
+
+The procedure for the experiment is simple, but must be elaborated such that it can be repeated.  First, consider that I am using a [Samsung Galaxy S9](https://en.wikipedia.org/wiki/Samsung_Galaxy_S9) in an area with poor cell reception, so there may be inherent variance due to operating system differences, hardware, or the availability of cellular data among other things.
+
+Then, consider that the starting point of my experiment begins at the end of my driveway, adjacent to my garage.  The stopping point is, therefore, at the end of my driveway.  This is but a distance of a few meters, taking about 30 seconds from point A to point B.  A picture of this can be seen below:
+
+<img src="road.png"  width="400"/>
+
+<center> <b>Figure 1:  my driveway.  Despite popular belief, it is not inclined at 45 degrees.  The illustration was added via GIMP.</b></center>
+
+Effectively, I start the `phyphox` experiment at the start of my driveway, walk in a straight line to the end of my driveway, and then stop the recording.  Afterwards, I email myself the data while walking back to point A.    I repeat this 9 more times.  I could keep going, but for such a small journey this should be enough data.  In trying to imitate the exact same initial conditions every time, the data should be easily combined such that any gaps in the trajectory are nearly filled.  
+
+Regardless, we can see what exactly this data looks like next.
+
+
+
+### Data
 
 Once the data has been recorded over `phyphox`, it can be exported by a variety of means.  As mentioned, I opted to export as a `CSV`, since it's less bulky and far more accessible. 
 
@@ -38,7 +56,7 @@ Regardless, the data is formatted such that each column has a header and represe
 
 ![](phyphox.png)
 
-<center> <b>Figure 1:  a table displaying some data native to the GPS export.  Each column is a different quantity representing data relevant to what GPS tracking would produce.</b></center>
+<center> <b>Figure 2:  a table displaying some data native to the GPS export.  Each column is a different quantity representing data relevant to what GPS tracking would produce.</b></center>
 
 I'll take this opportunity to describe what each quantity represents and why (or why not) it's useful in this experiment:
 
@@ -64,9 +82,9 @@ As such, the measurements I wish to include are time, latitude, longitude, altit
 
 Consider that position data is recorded by three variables:  altitude, latitude, and longitude.   The units provided by `phyphox` are meters, degrees, and degrees.  Really, there's only a slight difference between those conventions and spherical coordinates.  As such, I'll denote these $z$, $\theta$, and $\phi$ respectively.   A simple illustration of the geographical coordinate system can be seen below:
 
-![](geo_coordinates.png)
+<img src="geo_coordinates.png" alt="drawing" width="700"/>
 
-<center><b>Figure 2:  an illustration of the geographical coordinate system as projected onto Earth.  [2]</b></center>
+<center><b>Figure 3:  an illustration of the geographical coordinate system as projected onto Earth.  [2]</b></center>
 
 However, the most important consideration here is that the Earth is not a perfect sphere.  Rather, it is an [oblate spheroid](https://simple.wikipedia.org/wiki/Oblate_spheroid) or, simply put, a sphere with eccentricity greater than zero.  So, the closed form conversion to a Cartesian coordinate system isn't quite a reflection of the spherical conversion.  
 
@@ -76,7 +94,7 @@ With that, we can observe the projection of the spherical coordinate system onto
 
 ![](spherical_conversion.png)
 
-<center> <b>Figure 3:  the spherical coordinate system projected onto the Cartesian coordinate system.  [3]</b></center>
+<center> <b>Figure 4:  the spherical coordinate system projected onto the Cartesian coordinate system.  [3]</b></center>
 
 The conversion between spherical and Cartesian are then given by the generic equations
 
@@ -112,31 +130,31 @@ We could simplify this further by taking the absolute value of the quantity $ds_
 
 ##### _Time Equations of Motion_
 
-Since the data is in Cartesian format, the equations of motion can be easily derived.  First, we acknowledge that $F = m\ddot s = ma$, where $F$ is an arbitrary force, $m$ is the mass of the system, $\ddot s$ is the acceleration of the system, and $a$ is an acceleration constant.  This is an extension of [Newton's Law of Motion](https://www.grc.nasa.gov/www/k-12/airplane/newton.html).  Since we're not in free-fall (I would hope so) $a \neq g$ such that $g$ is the acceleration due to gravity.  Here, we also assume that the force is a constant and not subject to [Newton's Law of Universal Gravitation](https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation).  This is because that function is dependent on $r$ in and, for this experiment, $dr \approx 0$ (due to distances inconsequentially changing) such that no acceleration would be observed, which is contrary to real-life motion.  After all, speeding limits do change depending on the location, which requires some form of acceleration.
+Since the data is in Cartesian format, the equations of motion can be easily derived.  First, we acknowledge that $F = m\ddot s = ma$, where $F$ is an arbitrary force, $m$ is the mass of the system, $\ddot s$ is the acceleration of the system, and $a$ is an acceleration constant.  This is an extension of [Newton's Law of Motion](https://www.grc.nasa.gov/www/k-12/airplane/newton.html).  Since we're not in free-fall (I would hope so) $a \neq g$ such that $g$ is the acceleration due to gravity.  However, we also assume that $a = 0$, since I moved in a straight line with constant velocity.  Here, we also assume that the force is not subject to [Newton's Law of Universal Gravitation](https://en.wikipedia.org/wiki/Newton%27s_law_of_universal_gravitation).  This is because that function is dependent on $r$ in and, for this experiment, $dr \approx 0$ (due to distances inconsequentially changing) such that no velocity would be observed, which is contrary to real-life motion.  
 
-Then, the acceleration is something that must be experimentally determined.  That'll be addressed later.  We can then derive the velocity of the system by integrating both sides such that
+Then, the initial velocity is something that must be experimentally determined.  That'll be addressed later.  We can then derive the velocity of the system by integrating both sides such that
 
-* $m\ddot s = m\dfrac{dv}{dt} = ma$
-* $dv = adt$
-* $\int_{v_0}^{v} dv = \int_{t_0}^{t} adt$
-* $v - v_0 = a(t - t_0)$
-* $v = a(t - t_0) + v_0$
+* $m\ddot s = m\dfrac{dv}{dt} = 0$
+* $dv = 0dt$
+* $\int_{v_0}^{v} dv = \int_{t_0}^{t} 0dt$
+* $v - v_0 = 0$
+* $v = v_0$
 
-However, by convention we define $t_0$ = 0 seconds such that $v = at + v_0$ where $v_0$ is the initial velocity and $v$ is the velocity of the system.  We can further take advantage of the fact that $v = \dfrac{ds}{dt}$ such that
+However, by convention we define $t_0$ = 0 seconds such that $v = v_0$ where $v_0$ is the initial velocity and $v$ is the velocity of the system.  We can further take advantage of the fact that $v = \dfrac{ds}{dt}$ such that
 
-* $\dfrac{ds}{dt} = at + v_0$
-* $ds = (at + v_0)dt$
-* $\int_{s_0}^{s} ds = \int_{t_0}^t (at' + v_0)dt$
-* $s - s_0 = \frac{1}{2}a(t^2 - t_0^2) + v_0(t - t_0)$
-* $s = \frac{1}{2}a(t^2 - t_0^2) + v_0(t - t_0) + s_0$
+* $\dfrac{ds}{dt} = v_0$
+* $ds = v_0dt$
+* $\int_{s_0}^{s} ds = \int_{t_0}^t v_0dt$
+* $s - s_0 =  v_0(t - t_0)$
+* $s = v_0(t - t_0) + s_0$
 
-Once again, we can take advantage of $t_0 = 0$ seconds, but also that $s_0 = 0$ meters from us shifting the coordinate system.  As such, $s(t) = \frac{1}{2}at^2 + v_0t$.  We can then generalize this for our coordinate system such that:
+Once again, we can take advantage of $t_0 = 0$ seconds, but also that $s_0 = 0$ meters from us shifting the coordinate system.  As such, $s(t) = v_0t$.  We can then generalize this for our coordinate system such that:
 
-* $x(t) = \frac{1}{2}a_x t^2 + v_{x}t$
-* $y(t) = \frac{1}{2}a_yt^2 + v_yt$
-* $z(t) = \frac{1}{2}a_z t^2 + v_zt$
+* $x(t) = v_{x}t$
+* $y(t) = v_yt$
+* $z(t) = v_zt$
 
-If we wish to include a higher-order term such as jerk, methodology can be [found here](https://en.wikipedia.org/wiki/Jerk_(physics)).  With that, we can make decisions on the appropriate fit such that it follows the form of this equation and, thus, the physics.
+If we wish to include a higher-order term such as jerk or acceleration (assuming you're aware of the systems at play), methodology can be [found here](https://en.wikipedia.org/wiki/Jerk_(physics)).  With that, we can make decisions on the appropriate fit such that it follows the form of this equation and, thus, the physics.
 
 ##### _Fitting the Time Equations_
 
@@ -144,13 +162,13 @@ Consider that in the previous section we deduced that $s(t) = \frac{1}{2}at^2 + 
 
 Then, for a set of points $P$ such that size($P$) $> N + 1$, where $N$ is the highest order, we can utilize the fact that we can generate a matrix $T\vec{c}$ of size $N \times$ size($P$), which linearizes the equations.  Thus,
 
-$T\vec{c} = \begin{bmatrix}c_0 + c_1 t_1 + c_2 t_1^2 \\ c_0 + c_1 t_2 + c_2 t_2^2 \\ \dots\dots\dots\dots\\ c_0 + c_1 t_P + c_2 t_P^2\end{bmatrix}$     
+$T\vec{c} = \begin{bmatrix}c_0 + c_1 t_1 \\ c_0 + c_1 t_2 \\ \dots\dots\dots\\ c_0 + c_1 t_P \end{bmatrix}$     
 
 which can be further broken down into $T$ and $\vec{c}$ by factoring out the constants such that
 
-$T = \begin{bmatrix} 1 & t_1 & t_1^2 \\ 1 & t_2 & t_2^2 \\ \dots&\dots&\dots\\1 & t_P & t_P^2\end{bmatrix}$
+$T = \begin{bmatrix} 1 & t_1  \\ 1 & t_2 \\ \dots&\dots\\1 & t_P \end{bmatrix}$
 
-$\vec{c} = \begin{bmatrix} c_0 \\ c_1 \\ c_2\end{bmatrix}$
+$\vec{c} = \begin{bmatrix} c_0 \\ c_1\end{bmatrix}$
 
 Of course, this can be generalized to higher dimensions, but for our focus this is the highest it should go.  But this begs the question, what about the solutions, $\vec{s}$? These can also be generalized in the same way such that
 
@@ -160,7 +178,7 @@ We then have the vectorized equation $T\vec{c} = \vec{s}$.  This is a [Vandermon
 
 We can utilize this knowledge by multiplying both sides of the equation by the transpose of $T$, $T^T$, such that $A = T^T T$ and $\vec{b} = T^T \vec{s}$.  Thus, after applying this, we have $A\vec{c} = \vec{b}$, which can be row-reduced since the matrix is now non-singular (nonzero determinant) and square.   
 
-Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t + c_2 t^2 = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^{size(P)} [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{size(P)}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  
+Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^{size(P)} [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{size(P)}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  
 
 Alternatively, we can just observe $|s(t_i) - f(t_i)|$ vs. $t_i$ to see how the error trends at each vector element.   Since this is predicting real data (not an exact function), this measure won't really tells us much if we're looking to observe some trend in error.
 
@@ -168,17 +186,59 @@ Another common means of fitting raw data is producing a [Lagrange Interpolating 
 
 $P_n(t) = \sum_j^n s(t_j) \Pi_{i \neq j}^{n - 1} \dfrac{t - t_i}{t_j - t_i}$
 
-where $P_n(t)$ represents the interpolating polynomial with $n$ reference points. So, for enough points, it should exactly approximate the raw data.  However, this fails to represent the physical model, since a highly-accurate model would require many near $n$ points.  This would produce a near $t^n$ polynomial, which becomes a problem because the highest that we can observe on this scale is likely jerk, $\mathcal O(t^3)$.  So, although it may provide an accurate polynomial, it does not represent the physics of the system and doesn't tell us anything about physical constants such as $v_0$, $a$, etc.  
+where $P_n(t)$ represents the interpolating polynomial with $n$ reference points. So, for enough points, it should exactly approximate the raw data.  However, this fails to represent the physical model, since a highly-accurate model would require many near $n$ points.  This would produce a near $t^n$ polynomial, which becomes a problem because the highest that we can observe on this scale is likely jerk, $\mathcal O(t^3)$.  So, although it may provide an accurate polynomial, it does not represent the physics of the system and doesn't tell us anything about physical constants such as $v_0$, $a$, etc.   Least-squares can generalize higher order motion via the Vandermonde matrice anyway, as long as we know the system driving it.
 
-Further, I will not smooth the data by a Fourier transform because there is no periodicity to it.  Because of that, cleansing would not be algorithmic in most cases; rather, it would be case-by-case looking for inconsistencies in that particular data.  A better solution would be to follow the same path with the exact same initial conditions over and over again, then average the data.  However, even that isn't feasible since the data produced by `phyphox` doesn't have consistent time-steps such that you could match-up entries easily.  So, the average of $K$ trials is also ignored due to the structure of the data.  
+Further, I will not smooth the data by a Fourier transform because there is no periodicity to it.  Because of that, cleansing would not be algorithmic in most cases; rather, it would be case-by-case looking for inconsistencies in that particular data.  A better solution would be to follow the same path with the exact same initial conditions over and over again, then average the data.  However, even that isn't feasible since the data produced by `phyphox` doesn't have consistent time-steps such that you could match-up entries easily.  So, the average of $K$ trials is also ignored due to the structure of the data.  Regardless, we can supplement missing data by repeating the experiment as described and just combining each set, assuming the initial conditions are nearly identical.
 
-As such, I opt to follow the least-squares path instead since the matrix is formed by the actual predicted equations of motion.  Further, if we were to opt to use 3 points, the choice in them is arbitrary.   In such a large set of data, the user has to choose which points to interpolate.  This can't really be optimized without a rigorous algorithm that the motion doesn't necessary fit in all cases.  Instead, least-squares makes that decision for you by producing the correct order for a physics polynomial while implementing all points.
+As such, I opt to follow the least-squares path instead since the matrix is formed by the actual predicted equations of motion.  Further, if we were to opt to use 3 points, the choice in them is arbitrary.   In such a large set of data, the user has to choose which points to interpolate.  This can't really be optimized without a rigorous algorithm that the motion doesn't necessary fit in all cases.  Instead, least-squares makes that decision for you by producing the correct order for a physics polynomial while implementing all points.  Now, we can move on to eliminating time dependence in our equations of motion.  
+
+##### _Eliminating Time Dependence_
+
+In order to eliminate time dependence, i.e., treat $x(t)$ as $x(y, z)$, we can take advantage of the fact that the time domain, $t$, is constant between all three vector components $<x, y, z>$.  As such, we can rearrange the equations such that
+
+*  $t(x) = \dfrac{x}{v_x}$
+* $t(y) = \dfrac{y}{v_y}$
+* $t(z) = \dfrac{z}{v_z}$
+
+We can then substitute these time equations into any of the other position equations such that 
+
+* $x(y) = v_x t(y) = \dfrac{v_x}{v_y}y$
+* $y(x) = v_yt(x) = \dfrac{v_y}{v_x}x$
+* $z(x) = z(y) = v_zt(x) = v_zt(y) = \dfrac{v_z}{v_x}x = \dfrac{v_y}{v_y}y$
+
+Consider that we opt to totally eliminate $z$ from the equations because of the real possibility that elevation doesn't change.  If that were the case, then quantities such as $x(z)$ would blow up to infinity when $v_z \to 0$, which is not reflective of the motion.  Rather, it is safer to assume that $x$ and $y$ will always change due to the nature of the geographical coordinate system.  See Appendix B for more.
+
+
+
+### Conclusion
+
+In the end, it seems that the big take-away is that motion overall more strongly correlates with its other vector components than it does time.  Truly, this does make sense - time is a non-factor, i.e., time itself will not change with position, but linearly.  However, position will correlate more strongly against itself because we're examining each individual component.  So, hypothetically, our equations of motion are all dependent on each other.  And we show that, by showing that the equations can be rewritten in terms of each other.  Even further, something like $v_x$ can be considered in that $v = \sqrt{v_x^2 + v_y^2 + v_z^2}$, so it could be reduced more. 
+
+However, much of the barrier in fitting the time data came with noise.  This could perhaps be reduced via Fourier analysis, but there exists an assumption such that all data of the same procedure will have the same noise.  This is a falsehood, so applying that generically is rather difficult.  Instead, it's something that has to be tweaked with to fit the data specifically.  
+
+Regardless,  the strict linearity of the position data is useful.  It's useful because it tells us which velocities are dominant, by virtue of the least-squares constants being a proportion of the quantities.  In this, we can tell which direction of motion is more influential.  This linearity is also useful because, by eliminating time dependence, we can describe motion fairly accurately via other position alone.  
+
+Surely, there are more things to be said about the data - however, I am unable to conclude those exact things, since the experiments themselves weren't exhaustive.  Perhaps a further exploration of data could show more complicated physics, especially in acknowledging the time-dependent noise.
+
+
+
+### Discussion
+
+Overall, the feeling leaving this project is that I wish I had more time.  I wish I had more time to thoroughly explore other types of motion, or applying this data in other physics such as energy or momentum.  But it is what it is.  Regardless, I think that this collectively satisfies all of the objectives, so in that I achieved the minimum.  
+
+However, if I could improve one thing in the immediate it would be the data.  It has a lot of statistical noise that even walking several trials could not fix.  I think perhaps with $N > 100$ trials, or a more smooth walking path, the data would become more clean.  Or maybe my phone just isn't the best design for this experiment.  There are too many factors to be certain.  
+
+It would also be neat to implement the WGS84 coordinate system such that the coordinate conversions more accurately map to the shape of the Earth.  There is literature out there, but much of it is bickering such that I wasn't really sure what they were trying to convey.  Who knew people could be that pretentious over something so niche?
+
+Ultimately, there's plenty to expand on.  Surely, fitting the motion isn't the end of a project of this scope.  Perhaps I'll return to this eventually, but for now I think the assignment is done and dusted.
 
 
 
 ### Appendix 
 
 [A] Consider that the `phyphox` data is for the most part reliable.  However, depending on the phone and its operating system, there are some exceptions such that the data faces issues.  Namely, if the GPS experiment is started and it cannot ping the cellphone, then the first position will be the last known location.  I personally haven't observed this elsewhere in the time domain, so the fix for this is easy enough.  It does have standard deviation in the data such that you can reasonably adjust for mistakes, but it can't always be incorporated.  Overall, I've seen only but a few issues with time and position being misreported, but nothing that should affect the experiment since the data is cherrypicked as is.
+
+[B] However true this is, my actual data reflects a change in the $z$, so I could have totally run with the functions being dependent on altitude.  Despite this, I wanted to generalize as much as possible, since the standard deviation of the $z$ is rather large after all, such that the actual values could all be $0$ when examining $dz$.  And also, the cases of others who may read this might not reflect mine.
 
 ### References
 
@@ -192,13 +252,9 @@ As such, I opt to follow the least-squares path instead since the matrix is form
 
 to-do:
 
-fit based on simple quadratic motion, 
-
 re-do data for 10 or so trials walking down jennings
 
 fit based on x, y, z ? :) 
-
-discussion
 
 ***
 
