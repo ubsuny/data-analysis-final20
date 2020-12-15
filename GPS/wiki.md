@@ -24,9 +24,9 @@ First, all data comes from [phyphox](https://phyphox.org/), an application that 
 
 Second, the data for these results are provided in `CSV` and `Excel` formats.  I opt to use `CSV` because that data form is overall more accessible and less bulky.  
 
-Third, most of the background data processing is done in my own custom made `.py` files.  For two reasons, really:  that the code is out of sight so more of the space can be used for discussion and that unit testing can be performed on some of the statistically invariant functions.  A deeper dive into this code (and the code in this notebook) can be found in the `readme` in the github. 
+Third, most of the background data processing is done in my own custom made `.py` files.  For two reasons, really:  that the code is out of sight so more of the space can be used for discussion and that unit testing can be performed on some of the statistically invariant functions.  A deeper dive into this code (and the code in this notebook) can be found in the `readme` and `code` in the github repository. 
 
-Fourth, all data can be found in the `data` folder and the figures in the `figures` folder.  This is an act of cleanliness.
+Fourth, all data can be found in the `data` folder, the figures in the `figures` folder, and the code in the `utitlity` folder.  This is an act of cleanliness.
 
 Fifth, the motion I chose to imitate is rather simple; walking in a straight line does not generalize to higher orders of motion or equations of other forces.  So, my experiment can only be replicated as it by walking in a straight line.
 
@@ -158,7 +158,7 @@ If we wish to include a higher-order term such as jerk or acceleration (assuming
 
 ##### _Fitting the Time Equations_
 
-Consider that in the previous section we deduced that $s(t) = \frac{1}{2}at^2 + v_0t$.  This motion takes on the form of a quadratic equation.  If we generalize it further, we can state that $s(t) \approx c_2 t^2 + c_1 t + c_0 = f(t)$, where $c_n$ represents a constant associated with that motion.  $c_0$, for example, is related to the initial position, $c_1$ the initial velocity, etc.  
+Consider that in the previous section we deduced that $s(t) = v_0t$.  This motion takes on the form of a linear equation.  If we generalize it further, we can state that $s(t) \approx c_1 t + c_0 = f(t)$, where $c_n$ represents a constant associated with that motion.  $c_0$, for example, is related to the initial position, $c_1$ the initial velocity, etc.  Although we assume that $s_0 = 0$, $c_0$ might not be zero due to error in fitting the curve.
 
 Then, for a set of points $P$ such that size($P$) $> N + 1$, where $N$ is the highest order, we can utilize the fact that we can generate a matrix $T\vec{c}$ of size $N \times$ size($P$), which linearizes the equations.  Thus,
 
@@ -178,17 +178,15 @@ We then have the vectorized equation $T\vec{c} = \vec{s}$.  This is a [Vandermon
 
 We can utilize this knowledge by multiplying both sides of the equation by the transpose of $T$, $T^T$, such that $A = T^T T$ and $\vec{b} = T^T \vec{s}$.  Thus, after applying this, we have $A\vec{c} = \vec{b}$, which can be row-reduced since the matrix is now non-singular (nonzero determinant) and square.   
 
-Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^{size(P)} [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{size(P)}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  
-
-Alternatively, we can just observe $|s(t_i) - f(t_i)|$ vs. $t_i$ to see how the error trends at each vector element.   Since this is predicting real data (not an exact function), this measure won't really tells us much if we're looking to observe some trend in error.
+Solving this equation then produces the constants from the original equation $s(t) \approx c_0 + c_1 t = f(t)$ such that we now have an approximation to the position.  Typically, the error to this fit is not described by something akin to $\chi^2$ such that $\chi^2 = \sum_i^{size(P)} [\dfrac{s(t_i) - f(t_i)}{\sigma_i}]^2$ , where $\sigma_i$ is the standard deviation associated with the measurement of $s(t_i)$.  Further, root-mean squared error is given by $RMSE = \sqrt{\frac{\chi^2}{size(P)}}$.  Ultimately, these tells us the goodness of fit, but don't present themselves as a vectorization of that quantity.  Alternatively, we can just observe $|s(t_i) - f(t_i)|$ vs. $t_i$ to see how the error trends at each vector element.   Since this is predicting real data (not an exact function), this measure won't really tells us much if we're looking to observe some trend in error.
 
 Another common means of fitting raw data is producing a [Lagrange Interpolating Polynomial](https://mathworld.wolfram.com/LagrangeInterpolatingPolynomial.html).  This particular method is nice in that it has to pass through all the reference points by the equation 
 
 $P_n(t) = \sum_j^n s(t_j) \Pi_{i \neq j}^{n - 1} \dfrac{t - t_i}{t_j - t_i}$
 
-where $P_n(t)$ represents the interpolating polynomial with $n$ reference points. So, for enough points, it should exactly approximate the raw data.  However, this fails to represent the physical model, since a highly-accurate model would require many near $n$ points.  This would produce a near $t^n$ polynomial, which becomes a problem because the highest that we can observe on this scale is likely jerk, $\mathcal O(t^3)$.  So, although it may provide an accurate polynomial, it does not represent the physics of the system and doesn't tell us anything about physical constants such as $v_0$, $a$, etc.   Least-squares can generalize higher order motion via the Vandermonde matrice anyway, as long as we know the system driving it.
+where $P_n(t)$ represents the interpolating polynomial with $n$ reference points. So, for enough points, it should exactly approximate the raw data.  However, this fails to represent the physical model, since a highly-accurate model would require many near $n$ points.  This would produce a near $t^n$ polynomial, which becomes a problem because the highest that we can observe on this scale is likely jerk, $\mathcal O(t^3)$.  So, although it may provide an accurate polynomial, it does not represent the physics of the system and doesn't tell us anything about physical constants such as $v_0$, $a$, etc.   Least-squares can generalize higher order motion via the Vandermonde matrices anyway, as long as we know the system driving it.
 
-Further, I will not smooth the data by a Fourier transform because there is no periodicity to it.  Because of that, cleansing would not be algorithmic in most cases; rather, it would be case-by-case looking for inconsistencies in that particular data.  A better solution would be to follow the same path with the exact same initial conditions over and over again, then average the data.  However, even that isn't feasible since the data produced by `phyphox` doesn't have consistent time-steps such that you could match-up entries easily.  So, the average of $K$ trials is also ignored due to the structure of the data.  Regardless, we can supplement missing data by repeating the experiment as described and just combining each set, assuming the initial conditions are nearly identical.
+Further, I will not smooth the data by a Fourier transform because there is no periodicity to it explainable by physical systems.  Because of that, cleansing would not be algorithmic in most cases; rather, it would be case-by-case looking for inconsistencies in that particular data.  A better solution would be to follow the same path with the exact same initial conditions over and over again, then average the data.  However, even that isn't feasible since the data produced by `phyphox` doesn't have consistent time-steps such that you could match-up entries easily.  So, the average of $K$ trials is also ignored due to the structure of the data.  Regardless, we can supplement missing data by repeating the experiment as described and just combining each set, assuming the initial conditions are nearly identical.
 
 As such, I opt to follow the least-squares path instead since the matrix is formed by the actual predicted equations of motion.  Further, if we were to opt to use 3 points, the choice in them is arbitrary.   In such a large set of data, the user has to choose which points to interpolate.  This can't really be optimized without a rigorous algorithm that the motion doesn't necessary fit in all cases.  Instead, least-squares makes that decision for you by producing the correct order for a physics polynomial while implementing all points.  Now, we can move on to eliminating time dependence in our equations of motion.  
 
@@ -202,11 +200,19 @@ In order to eliminate time dependence, i.e., treat $x(t)$ as $x(y, z)$, we can t
 
 We can then substitute these time equations into any of the other position equations such that 
 
-* $x(y) = v_x t(y) = \dfrac{v_x}{v_y}y$
-* $y(x) = v_yt(x) = \dfrac{v_y}{v_x}x$
-* $z(x) = z(y) = v_zt(x) = v_zt(y) = \dfrac{v_z}{v_x}x = \dfrac{v_y}{v_y}y$
+* $x(y) = v_x t(y) = \dfrac{v_x}{v_y}y = \dfrac{v_x}{v_z}z$
+* $y(x) = v_yt(x) = \dfrac{v_y}{v_x}x = \dfrac{v_y}{v_z}z$
+* $z(x) = z(y) = v_zt(x) = v_zt(y) = \dfrac{v_z}{v_x}x = \dfrac{v_z}{v_y}y$
 
-Consider that we opt to totally eliminate $z$ from the equations because of the real possibility that elevation doesn't change.  If that were the case, then quantities such as $x(z)$ would blow up to infinity when $v_z \to 0$, which is not reflective of the motion.  Rather, it is safer to assume that $x$ and $y$ will always change due to the nature of the geographical coordinate system.  See Appendix B for more.
+Consider that we opt to totally eliminate $z$ from the equations because of the real possibility that elevation doesn't change.  If that were the case, then quantities such as $x(z)$ would blow up to infinity when $v_z \to 0$, which is not reflective of the motion.  Rather, it is safer to assume that $x$ and $y$ will always change due to the nature of the geographical coordinate system.  See Appendix B for more.  
+
+With this, we produce a position vector $r' = <\dfrac{v_x}{v_y}y, \dfrac{v_y}{v_x}x, \dfrac{v_z}{v_y}y>$, which we can compare to the actual position vector as defined by $r = <x, y, z>$.  We can do this in two ways:  first by observing a 3D plot such that there is no time dependence.   The associated error would just be $|r - r'|$, which can also be represented in a 3D plot.   
+
+These proportions can be found by calculating least squares, treating it as you would in the previous section.  This time, with $x$ as an example, $x$ would be the output and $y$ the input.  You should not be able to use the coefficients calculated in the previous section unless there is perfect accuracy.  
+
+However, we can also take the magnitude of the vector such that $r = \sqrt{x^2 + y^2 + z^2}$ and compare that to the magnitude of the prediction, or $r = \sqrt{\dfrac{v_x^2}{v_y^2}y^2 + \dfrac{v_y^2}{v_x^2}x^2 + \dfrac{v_z^2}{v_y^2}y^2}$.  This is only a brief mention, as this equation would be time dependent.  
+
+With that, there is no more theory to establish.  Any comparisons, such as comparing our methods to `np.polyfit()`, will be seen in the actual notebook.  Thank you.
 
 
 
@@ -226,7 +232,7 @@ Surely, there are more things to be said about the data - however, I am unable t
 
 Overall, the feeling leaving this project is that I wish I had more time.  I wish I had more time to thoroughly explore other types of motion, or applying this data in other physics such as energy or momentum.  But it is what it is.  Regardless, I think that this collectively satisfies all of the objectives, so in that I achieved the minimum.  
 
-However, if I could improve one thing in the immediate it would be the data.  It has a lot of statistical noise that even walking several trials could not fix.  I think perhaps with $N > 100$ trials, or a more smooth walking path, the data would become more clean.  Or maybe my phone just isn't the best design for this experiment.  There are too many factors to be certain.  
+However, if I could improve one thing in the immediate it would be the data.  It has a lot of statistical noise that even walking several trials could not fix.  I think perhaps with $N > 100$ trials, or a more smooth walking path, the data would become more clean.   If I had more time, I would outline a very specific path or simply just find a larger stretch of line.  Or maybe my phone just isn't the best design for this experiment.  There are too many factors to be certain.  
 
 It would also be neat to implement the WGS84 coordinate system such that the coordinate conversions more accurately map to the shape of the Earth.  There is literature out there, but much of it is bickering such that I wasn't really sure what they were trying to convey.  Who knew people could be that pretentious over something so niche?
 
@@ -240,6 +246,8 @@ Ultimately, there's plenty to expand on.  Surely, fitting the motion isn't the e
 
 [B] However true this is, my actual data reflects a change in the $z$, so I could have totally run with the functions being dependent on altitude.  Despite this, I wanted to generalize as much as possible, since the standard deviation of the $z$ is rather large after all, such that the actual values could all be $0$ when examining $dz$.  And also, the cases of others who may read this might not reflect mine.
 
+
+
 ### References
 
 [1] https://confluence.qps.nl/qinsy/latest/en/world-geodetic-system-1984-wgs84-182618391.html
@@ -249,12 +257,6 @@ Ultimately, there's plenty to expand on.  Surely, fitting the motion isn't the e
 [3] https://rbrundritt.wordpress.com/2008/10/14/conversion-between-spherical-and-cartesian-coordinates-systems/
 
 
-
-to-do:
-
-re-do data for 10 or so trials walking down jennings
-
-fit based on x, y, z ? :) 
 
 ***
 
