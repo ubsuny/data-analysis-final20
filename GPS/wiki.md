@@ -210,7 +210,9 @@ With this, we produce a position vector $r' = <\dfrac{v_x}{v_y}y, \dfrac{v_y}{v_
 
 These proportions can be found by calculating least squares, treating it as you would in the previous section.  This time, with $x$ as an example, $x$ would be the output and $y$ the input.  You should not be able to use the coefficients calculated in the previous section unless there is perfect accuracy.  
 
-However, we can also take the magnitude of the vector such that $r = \sqrt{x^2 + y^2 + z^2}$ and compare that to the magnitude of the prediction, or $r = \sqrt{\dfrac{v_x^2}{v_y^2}y^2 + \dfrac{v_y^2}{v_x^2}x^2 + \dfrac{v_z^2}{v_y^2}y^2}$.  This is only a brief mention, as this equation would be time dependent.  
+However, we can also take the magnitude of the vector such that $r = \sqrt{x^2 + y^2 + z^2}$ and compare that to the magnitude of the prediction, or $r = \sqrt{\dfrac{v_x^2}{v_y^2}y^2 + \dfrac{v_y^2}{v_x^2}x^2 + \dfrac{v_z^2}{v_y^2}y^2}$.  This is only a brief mention, as this equation would be time dependent.   Regardless, this represents the absolute distance from the origin.  So, we would anticipate for the walk that it would increase over time.  
+
+Note that we can reduce $r$ down to $r = \sqrt{(v_xt)^2 + (v_yt)^2 + (v_zt)^2} = \sqrt{v_x^2 + v_y^2 + v_z^2}t$. 
 
 With that, there is no more theory to establish.  Any comparisons, such as comparing our methods to `np.polyfit()`, will be seen in the actual notebook.  Thank you.
 
