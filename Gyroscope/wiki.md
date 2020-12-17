@@ -67,7 +67,7 @@ The first experiment is to simulate that the phone has a constant angular accele
 In Fig.4, the roller accelerates and rolls along a straight line which drives the phone to rotate with it. This is implemented by my hand holding the roller axle and applying a constant force, assuming the resistance force is constant, the phone will be spinning with a constant angular acceleration. The following figure simply derives the physics. 
   
 <p align="center">
-<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P5derivation.jpg">  
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/5rotate.jpg">  
   
 <p align="center">Figure 5. Derivation to prove the phone has a constant angular acceleration.  
 
@@ -89,7 +89,7 @@ To better testify the algorithm, I set up a second experiment as shown in Fig.6,
 The spinning of the phone generates angular velocity components along z direction; meanwhile the precession rises x and y components. Since now both precession and rotation are involved, based on rigid body rotation theorem, we derived relations between components of angular velocity and actual angular velocities, as in Fig.7.
   
 <p align="center">
-<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P7derivation.jpg">  
+<img width="450" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/7rotate.jpg">  
 <p align="center">Figure 7. Derivation x and y components of angular velocity.  
 
 Thus, we have all components of angular velocity as:  
