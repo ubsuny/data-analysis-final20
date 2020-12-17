@@ -14,15 +14,18 @@ Based on a gyroscope, the angular velocity can be calculated by measuring the [C
 
 In this project, a useful mobile application entitled [phyphox](https://phyphox.org/) is utilized to acquire data. This app provides different kinds of physics experiments and several of them are gyroscope-involved: "inclination", "Centrifugal acceleration", "roll", etc. The one will be studied for this project is simply called "gyroscope", which just gives the raw data from the phone’s gyroscope as a rotation rate in rad/s. [3] With the phyphox experiment running, the real-time data is shown and temporal evolution is recoreded simultaneously. Also, after the measurement, you can choose the file format and data type for output.  
 
-
-
-Figure 1. A phyphox interface for the gyroscope experiment. (photoshopped to replace Chinese with English)
-
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://raw.githubusercontent.com/ubsuny/data-analysis-final20/main/Gyroscope/figures/P1phyphox_interface.png">  
+  
+<p align="center">Figure 1. A phyphox interface for the gyroscope experiment. (photoshopped to replace Chinese with English)  
+  
+  
 Fig.1 shows us how an interface looks like, where three subplots represent three components along x, y and z direction of the angular velocity, respectively. There're several other interfaces to show the total angular velocity, real-time data and all components in one plot, etc. In this experiment, axes are fixed to be based on for measuring angular velocities along different directions and they're with respect to the cellphone screen, as shown in the following figure.
 
-
-![](https://phyphox.org/wp-content/uploads/2016/04/coordinate_system.jpg)  
-Figure 2. Coordinate system of Phyphox. [4]  
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://phyphox.org/wp-content/uploads/2016/04/coordinate_system.jpg">  
+   
+<p align="center">Figure 2. Coordinate system of Phyphox. [4]   
 
 From fig.2, we can see that the z axis is pointing out of the screen perpendicularly. The x axis points to the right looking at the screen in portrait (vertical) orientation. The y axis points upwards along the long side of the phone. [4] And the original point is set at the geometrical center of the screen.
 
@@ -40,8 +43,14 @@ The phone will have weird spin during rotating the rope which ruins the data.
 This actually works but **it's also dangerous**. My phone was close to be smashed so it's not recommended.
 - [✔] tape my phone to an ab wheel roller:
 It went smoothly, is relatively easy to operate and guarantees a steady rotation.  
-
-Figure 3. Experimental set up based on a cellphone and an ab wheel roller.
+  
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P3roller.jpg">  
+<p align="center"> Figure 3(a). Side view of a cellphone taped on an ab wheel roller.  
+<p align="center">
+ <img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P3broller2.jpg">  
+     
+<p align="center">Figure 3(b). Experimental set up based on a cellphone and an ab wheel roller.  
 
 As shown in Fig.3, the half of axle is removed from the roller to allow the phone taped on the side of it. Then I tape the phone tightly at the center of the roller, put the other half axle through the roller then I can control the angular velocity by adjusting the speed of the roller (the roller can also make a turn). Recalling from Fig.2, now z axis is pointing out from the mobile screen while x and y axes are in the side plane of the roller.
 
@@ -49,11 +58,18 @@ As shown in Fig.3, the half of axle is removed from the roller to allow the phon
 
 The first experiment is to simulate that the phone has a constant angular acceleration along the z direction while there's no motion along the x and y direction. Therefore, the z component of angular velocity is linear with respect to time and other two components are ideally zero. 
 
-Figure 4. Trajectory of the roller in Experiment I.
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P4traj.png">  
+  
+<p align="center">Figure 4. Trajectory of the roller in Experiment I.  
+  
 
 In Fig.4, the roller accelerates and rolls along a straight line which drives the phone to rotate with it. This is implemented by my hand holding the roller axle and applying a constant force, assuming the resistance force is constant, the phone will be spinning with a constant angular acceleration. The following figure simply derives the physics. 
-
-Figure 5. Derivation to prove the phone has a constant angular acceleration.
+  
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P5derivation.jpg">  
+  
+<p align="center">Figure 5. Derivation to prove the phone has a constant angular acceleration.  
 
 Then we're able to write following relations as expected results:  
 -  ![](https://latex.codecogs.com/gif.latex?\\-\omega_x=0)
@@ -65,12 +81,16 @@ Then we're able to write following relations as expected results:
 ## Experiment II
 
 To better testify the algorithm, I set up a second experiment as shown in Fig.6, with the roller now rotating around the tip of its axle while rolling as a normal roller. A flat ground floor with a red marked dot is needed to minimize systematic errors and monitor the position of the rotation axle to be fixed.  
-
-Figure 6. Trajectory of the roller in Experiment II. The red dot is the projection of the roation axle on the floor.  
+  
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P6traj.png">  
+<p align="center">Figure 6. Trajectory of the roller in Experiment II. The red dot is the projection of the roation axle on the floor.  
 
 The spinning of the phone generates angular velocity components along z direction; meanwhile the precession rises x and y components. Since now both precession and rotation are involved, based on rigid body rotation theorem, we derived relations between components of angular velocity and actual angular velocities, as in Fig.7.
-
-Figure 7. Derivation x and y components of angular velocity.
+  
+<p align="center">
+<img width="300" alt="portfolio_view" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Gyroscope/figures/P7derivation.jpg">  
+<p align="center">Figure 7. Derivation x and y components of angular velocity.  
 
 Thus, we have all components of angular velocity as:  
 -  ![](https://latex.codecogs.com/gif.latex?\\-\omega_x=\omega_p*sin(\omega_s*(t+\phi)))
