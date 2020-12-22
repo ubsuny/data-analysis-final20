@@ -32,7 +32,9 @@ There is very clear sinusoidal behavior in the data sets. However, to clean it u
  
  # Algorithms
  
-I pause the discussion of the physics to discuss the three algorithms I employed in order to perform the necessary data analysis. 
+I pause the discussion of the physics to discuss the three algorithms I employed in order to perform the necessary data analysis. The code resides in the `src` folder. The first algorithm I employed was a sine function fit. It uses a fast-fourier transform on the data to get an initial guess for the function, and then adjusts the fit using `scipy.optimize.curve_fit`. It returns a python dictionary containing different attributes of the fitted function. The second algorithm is a data smoother. It is a simple implementation of a triangular moving average in order to produced the smoothed data. It generally functions better than the provided filters in the `scipy.signal` module. However, data type errors occasionally prevented full use. The final agorithm is one that generally requires well-smoothed data. This is the peak finder algorithm. Taking advantage of the fact that it will be dealing with nice and smooth data sets, the functionality is relatively simple. A massive if statement parses the input; first it identifies all local maxima, and then refines based on the necessary peak width that is given as an input. While slightly computatoionally expensive, it allows user selection of a statistically peak width. 
+
+# Data Analysis
  
  
  
