@@ -23,7 +23,25 @@ The following diagrams were generated directly from the orbital simulator. The c
  <img width="500" alt="orbit10" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/e=0_100O_axis.png?">  
 <p align="center">Figure 3. 100 Orbit raw readings.
  
- There is very clear sinusoidal behavior in the data sets. However, to clean it up even further we can work with the scalar magnitude of the field, given by $data = \sqrt((x_data)^2+(y_data)^2+(z_data)^2)$. This should make periodic behavior even more easily distinguishable. 
+There is very clear sinusoidal behavior in the data sets. However, to clean it up even further we can work with the scalar magnitude of the field, given by <img src="https://render.githubusercontent.com/render/math?math=Bmag= \sqrt((x)^2+(y)^2+(z)^2)">. This should make periodic behavior even more easily distinguishable. Indeed, the magnitude plot for the 10 orbit zero eccentricity shows an already almost perfect sinusoid in Fig. 4. It also displays artifacts of the shape of the magnetic field (something that will come in handy later on).
+
+  <p align="center">
+ <img width="500" alt="orbit10" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/e=0_10O_magnitude.png?">  
+<p align="center">Figure 1. 10 Orbit magnitude data.
+ 
+ 
+ # Algorithms
+ 
+I pause the discussion of the physics to discuss the three algorithms I employed in order to perform the necessary data analysis. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
