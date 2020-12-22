@@ -11,4 +11,4 @@ The original intent for this project was to use the PhyPhox phone experiment to 
 + `src` contains the three `.py` files containing algorithms used for data analysis
 + `Data Analysis.ipynb` is a shell for carrying out and displaying data analysis for the provided data sets using the methods contained in src
 + `Unit Testing Notebook.ipynb` is a shell for carrying out trivial, easily verifiable tests of all written algorithms
-
++ `Wiki` details methodology and decisions made for this project
