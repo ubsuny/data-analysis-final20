@@ -7,5 +7,5 @@ Due to familiarity with satllite sensor systems gained through research experien
 In order to produce a system that was relatively easy to analyze, I set the orbit conditions to be something rarely seen in practice, while still being complex enough to be a realistic system. The simulation accounted for all environmental factors  except differential drag and solar pressure. These effects can generally be ignored, especially since I set the satellite to be spin-stabilized. The orbit I selected was one along the Earth's equator (celestial equator in Fig. 1) As seen in 
 
 <p align="center">
- <img width="300" alt="orbitdg" src="https://github.com/ubsuny/data-analysis-final20/tree/main/Orbital_Magnetometer/images/orbitdiagram">  
+ <img width="300" alt="orbitdg" src="https://github.com/ubsuny/data-analysis-final20/tree/main/Orbital_Magnetometer/images/orbitdiagram.png">  
 <p align="center">Figure 1. Orbit diagram.
