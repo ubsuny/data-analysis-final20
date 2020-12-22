@@ -4,8 +4,30 @@ Due to familiarity with satllite sensor systems gained through research experien
 
 # System Simplification
 
-In order to produce a system that was relatively easy to analyze, I set the orbit conditions to be something rarely seen in practice, while still being complex enough to be a realistic system. The simulation accounted for all environmental factors  except differential drag and solar pressure. These effects can generally be ignored, especially since I set the satellite to be spin-stabilized. The orbit I selected was one along the Earth's equator (celestial equator in Fig. 1). As seen in 
-
+In order to produce a system that was relatively easy to analyze, I set the orbit conditions to be something rarely seen in practice, while still being complex enough to be a realistic system. The simulation accounted for all environmental factors  except differential drag and solar pressure. These effects can generally be ignored, especially since I set the satellite to be spin-stabilized. The orbit I selected was one along the Earth's equator (celestial equator in Fig. 1). This will remove any north-south data variation. Spin-stabilizing the spacecraft was done through taking a face of the satellite and fixing it to a vector that stays pointed along the same axis across the entire orbit and stays parallel to the equitorial plane, along with zeroing angular rotation along all three axes (variable parameters in the simulation). This trivially leads to an expectation of a maximum value of the x-axis measurements on one side of the planet, a minimum on the other, and periodic variations in the y and z data as the satellite orbits. By reducing the complexity of the system to be analyzed, we can ensure that the data will (hopefully) already be in a sinusoid. One of the only parameters that wasn't fixed was the eccentricity of the orbit, which governs how elliptical it is. 
+ 
 <p align="center">
- <img width="300" alt="orbitdg" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/orbitdiagram.png?">  
+ <img width="500" alt="orbitdg" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/orbitdiagram.png?">  
 <p align="center">Figure 1. Orbit diagram.
+
+
+# Raw Data Plots
+
+The following diagrams were generated directly from the orbital simulator. The contain the same data as the ones generates from the same data in analysis, however I find these to display the noisiness of the measurements a tiny bit better. Fig. 2 shows the raw data plotted for a zero eccentricity orbit propagated tbrough 900 minutes, or about 10 orbits of the average 90 minute L.E.O. orbit. The actual orbital period may be lesser or greater than this value, and the number of orbits completed in the simulation time will vary accordingly.  A better data resolution can be gained from simply running the simulation for longer, such as the 100 orbits in Fig. 3.
+<p align="center">
+ <img width="500" alt="orbit10" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/e=0_10O_axis.png?">  
+<p align="center">Figure 2. 10 Orbit raw readings.
+ 
+ 
+ <p align="center">
+ <img width="500" alt="orbit10" src="https://github.com/ubsuny/data-analysis-final20/blob/main/Orbital_Magnetometer/images/e=0_100O_axis.png?">  
+<p align="center">Figure 3. 100 Orbit raw readings.
+ 
+ There is very clear sinusoidal behavior in the data sets. However, to clean it up even further we can work with the scalar magnitude of the field, given by $data = \sqrt((x_data)^2+(y_data)^2+(z_data)^2)$. This should make periodic behavior even more easily distinguishable. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
