@@ -57,5 +57,8 @@ Immediately apparent are the sinusoidally varying peak magnitudes. Obviously, so
  While this data could be obtained from the clunky IGRF python interface, the model was already incorporated into and values trivially pulled from the orbital model. The answer to the big sinusoid is the alignment of the perigee and apogree with the peaks and troughs of the field. Since the satellite orbit is no longer perfectly circular, its altitude varies, and the orbit "shifts" by a certain amount each time it orbits. This rate of change should show some information about the rotation of the Earth. The waveform expands as the satellite's lowest point in the orbit coincides with the strongest point of the magnetic field (perigee over about 100 degrees longitude), and contracts as the apogee approches the weakest point (about -50 degrees longitude). This orbit shift (could technically call it a precession but I have been sternly told off when attempting that) is governed only by the rotation of the Earth, and so a fit over the trend waveform should return a sine approximation of the rotation of the Earth, which it did to an accuracy of 0.5 hours. There may be other perturbations I  forgot to account for, however the results I got are reasonably close enough that I can be satisfied my algorithms work and provide pretty good results. 
  
  
+ Sources: 
  
+ - F. Landis Markley, John L. Crassidis, Fundamentals of Spacecraft Attitude Determination and Control
+ - John L. Crassidis, John Junkins, Optimal Estimation of Dynamic Systems
  
